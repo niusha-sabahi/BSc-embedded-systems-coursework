@@ -1,0 +1,153 @@
+# INS: Instructions
+
+Menu
+
+The game loads onto the menu where the first option "1: Play practice mode." is displayed,
+you can press the up and down buttons to view these different menu options in the order below:
+
+*"1: Play practice mode."
+*"2: Play story mode."
+*"3: Change sequence length (N)."
+*"4: Change no. of keys (M)."
+*"5: Change time limit (T)."
+
+You can select a menu option by pressing the select button once that menu option has stopped scrolling.
+
+1: Play practice mode
+
+The practice mode is set to N=4, M=2, D=1.00 second and T=5.00 second at the start (N, M and T can be changed in menu).
+Before playing the game, make sure to load up the serial monitor, this allows you to see the whole sequence per stage(s) 
+in both practice and story mode so that you can test the game when the input is correct. 
+
+Each new stage is indicated by "--New pattern--" and each key is printed in order on a new line. When playing practice mode, 
+a single stage is displayed (each key is displayed individually in order), and then the timer starts for the first key.
+
+The timer updates every 0.1 seconds and the game will be over if no key is entered before it runs out, however, if any key is
+entered before it runs out, the timer resets and you have to enter the next key. This continues for all keys in the sequence.
+
+If the sequence entered is correct, at the end the backlight flashes green and we return to menu, but if any of the keys were 
+entered wrong, the game over message is displayed and we return to menu.
+
+2: Play story mode
+
+The story mode plays stages of increasing difficulty until the player enters a wrong sequence when the game over display is shown 
+and they return to the menu. This means stages above 4 have N>10.
+
+The first stage is set to N=4, M=2, D=3 seconds, T=5.00 seconds. Every successive stage becomes harder with some of these changing 
+(they all change at least once by the 3rd stage). N and M increase and D and T decrease.
+
+3: Change sequence length (N)
+
+This menu option allows you to change N for the practice mode in the range 4-10.
+Use up and down to increase/ decrease the number and press select when done.
+
+4: Change no. of keys (M)
+
+This menu option allows you to change M for the practice mode where:
+
+*M=2 only uses the left and right keys.
+*M=3 uses left, right and up.
+*M=4 uses left, right, up and down.
+
+Use up and down to increase/ decrease the number and press select when done.
+
+5: Change time limit (T)
+
+This menu option allows you to change the timer limit for practice mode,
+it ranges from 1.50-5.00 seconds.
+
+Use up and down to increase/ decrease the number and press select when done.
+
+# MFS: Features of the minimal feature set
+
+Indicate by deleting YES or NO to the questions below.
+If partially implemented, describe this by deleting *YES/NO* and
+writing what does work.  Do not adjust any other text in this section.
+
+* Sequences are displayed on the screen as specified: *YES*
+* Backlight flashes (only when correct): *YES*
+* Incorrect answer leads to game over: *YES*
+* Game supports *N* up to 10: *YES*
+* Game supports *M* of size 4: *YES*
+* A menu is present: *YES*
+* Size of *M* can be changed: *YES*
+* *N* can be changed: *YES*
+* Message when wrong printed: *YES*
+
+# OAF: Optional and additional features
+
+And these go here.
+
+* Story mode is implemented with increasing N and M and decraesing D and T until the player fails a stage.
+* The menu allows the user to select practice mode or story mode.
+* A time limit T for inputting the next character, this value can be changed in the menu but is set to 5 seconds
+originally.
+*T is displayed as a countdown and goes down in steps of 0.1 seconds.
+*Sequences of length greater than N=10 occur in stages later than stage 4 in story mode, you can also set N up to N=12
+in the menu and so play practice mode with N up to 12.
+
+# TPL: Test plan
+
+*Load Serial monitor for help passing stages when playing the practice mode and story mode. 
+This feature is only for testing and is not part of the actaul game.
+
+1.The message "Use up and down to scroll, then press select." will scroll
+across the screen.
+2.The message "1: Play practice mode." will scroll across the screen.
+3.Press select button.
+4.A sequence of N=4 and M=2 (right and left) will be displayed, where each 
+key is displayed for 1 second as D=1 second in practice mode. 
+5.The screen then clears and a timer appears on the bottom line that goes 
+from 5 seconds to 0 (as T=5.00 at start) and is displayed to 2 decimal places. 
+This timer updates every 0.1 seconds. 
+6.Don't press any buttons and let the timer run out.
+7.When it has run out, the screen clears and the message "OOPs  :(" at the top
+and "Game over!" at the bottom displays.
+8.Now "1: Play practice mode." scrolls again as we return to menu.
+9.Press the up button.
+10.The message "5: Change time limit (T)." will scroll.
+11.Press select.
+12."T: 5.00" will be displayed.
+13.Press down until "T: 3.50" is displayed.
+14:Press select.
+15.The message "1: Play practice mode." will scroll.
+16.Press down.
+17.The message "2: Play story mode." will scroll.
+18.Press down.
+19.The message "3: Change sequence length (N)." 
+20.Press select.
+21."N = 4" is displayed.
+22.Press up until "N = 6" is displayed.
+23.Press select.
+24.The message "1: Play practice mode." 
+25.The message "4: Change no. of keys (M)." will scroll.
+26.Press select.
+27."M: 2" is displayed.
+28.Press up twice.
+29."M: 4" is displayed.
+30.Press select.
+31."1: Play practice mode." scrolls again as we return to menu.
+32.Press select.
+33.A sequence of length N = 6 of possible keys up, down, right and left will 
+display. 
+34.Using the output on the serial monitor that displays the new sequence,
+input an incorrect pattern without letting the timer run out.
+35.The screen clears and the message "OOPs  :(" at the top
+and "Game over!" at the bottom displays after the whole sequence is entered.
+36."1: Play practice mode." scrolls again as we return to menu.
+37.Press select.
+38.A new sequence will show.
+39.This time, using the output on the serial monitor (each new stage is indicated by "--New pattern--"), 
+enter the right sequence, being careful to enter it in time.
+30.The backlight flashes green.
+31."1: Play practice mode." scrolls as we return to menu.
+32.Press down.
+33."2: Play story mode." scrolls on screen.
+34.Press select.
+35.Play the game using the serial monitor (each new stage is indicated by "--New pattern--"),
+and enter the correct pattern up until the 4th stage. The story mode doesn't stop until you fail a stage.
+36.The pattern should now be longer than 10.
+37.Fail the next stage.
+38.The screen clears and the message "OOPs  :(" at the top
+and "Game over!" at the bottom displays. 
+39.We return to the menu and "1: Play practice mode." scrolls again.
